@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> Детектор подозрительных менеджеров</title>
+    <link rel="stylesheet" href="styles.css?v=16">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-terminal"></i>
+                <h1> Детектор подозрительных менеджеров </h1>
+            </div>
+            <div class="hamster-section">
+                <img src="Gif/Sad Hamster Sticker.gif" alt="Грустный хомяк" class="hamster-sticker">
+            </div>
+            <div class="button-container">
+                <div class="music-section">
+                    <audio id="sadMusic" loop>
+                        <source src="Music/Sad Hamster Violin Meme.mp3" type="audio/mpeg">
+                    </audio>
+                    <button class="music-btn" onclick="toggleMusic()">
+                        <i class="fas fa-music"></i>
+                        🎻 Грустная скрипка
+                    </button>
+                </div>
+                <div class="telegram-section">
+                    <a href="https://t.me/Project_leen" target="_blank" class="telegram-btn">
+                        <i class="fab fa-telegram"></i>
+                        Перейти в @Project_leen
+                    </a>
+                </div>
+            </div>
+            <div class="rainbow-cat">
+                <img src="Gif/Nyan Cat Transparent.gif" alt="Nyan Cat" class="cat-gif">
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="window-controls">
+                <button class="close-btn" onclick="closeWindow()">×</button>
+            </div>
+            <!-- Analysis Form -->
+            <div class="analysis-form">
+                <div class="instruction-text">
+                    <p>Киньте нам ссылку на Telegram канал,мы разберемся кто тут мошенник! 🕵️‍♂️</p>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fab fa-telegram"></i>
+                    <input type="url" id="telegramUrl" placeholder="https://t.me/channel_name" maxlength="1000" required>
+                </div>
+                
+                <div class="examples">
+                    <p>Примеры ссылок:</p>
+                    <span class="example-link">https://t.me/channel_name</span>
+                    <span class="example-link">@channel_name</span>
+                </div>
+                
+                <button id="analyzeBtn" class="analyze-btn">
+                    <i class="fas fa-play"></i>
+                    ЗАПУСТИТЬ АНАЛИЗ
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state hidden">
+                <div class="spinner"></div>
+                <p class="loading-text">Анамнез Менеджера</p>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-section hidden">
+                <div class="risk-score">
+                    <div class="score-circle">
+                        <div class="score-value" id="riskScore">0%</div>
+                        <div class="score-label">УРОВЕНЬ МОШЕННИЧЕСТВА</div>
+                    </div>
+                </div>
+
+                <!-- Meme/GIF Display -->
+                <div class="meme-display">
+                    <img id="memeImage" src="" alt="Meme" class="meme-image">
+                </div>
+
+                <div class="analysis-details">
+                    <h3>ДЕТАЛИ АНАЛИЗА</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <i class="fas fa-calendar"></i>
+                            <div>
+                                <h4>Дата создания</h4>
+                                <p id="createdDate">-</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <h4>Активность</h4>
+                                <p id="activity">-</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Репутация</h4>
+                                <p id="reputation">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-factors">
+                    <h3>ФАКТОРЫ РИСКА</h3>
+                    <div id="riskFactors" class="factors-list">
+                        <!-- Risk factors will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3>РЕКОМЕНДАЦИИ</h3>
+                    <div id="recommendations" class="recommendations-list">
+                        <!-- Recommendations will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <button id="analyzeAnotherBtn" class="analyze-another-btn">
+                    <i class="fas fa-redo"></i>
+                    НОВЫЙ АНАЛИЗ
+                </button>
+            </div>
+        </main>
+
+        <!-- Modal Window for Results -->
+        <div id="modalOverlay" class="modal-overlay hidden">
+            <div id="modalWindow" class="modal-window">
+                <div class="modal-header">
+                    <h2>РЕЗУЛЬТАТЫ АНАЛИЗА</h2>
+                    <button class="modal-close-btn" onclick="closeModal()">×</button>
+                </div>
+                <div class="modal-content">
+                    <div class="modal-risk-score">
+                        <div class="modal-score-circle">
+                            <div class="modal-score-value" id="modalRiskScore">0%</div>
+                            <div class="modal-score-label">УРОВЕНЬ МОШЕННИЧЕСТВА</div>
+                        </div>
+                    </div>
+
+                <!-- Modal Meme/GIF Display -->
+                <div class="modal-meme-display">
+                    <img id="modalMemeImage1" src="" alt="Meme 1" class="modal-meme-image">
+                    <img id="modalMemeImage2" src="" alt="Meme 2" class="modal-meme-image">
+                    <img id="modalMemeImage3" src="" alt="Meme 3" class="modal-meme-image">
+                </div>
+
+                    <div class="modal-analysis-details">
+                        <h3>ДЕТАЛИ АНАЛИЗА</h3>
+                        <div class="modal-details-grid">
+                            <div class="modal-detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <div>
+                                    <h4>Дата создания</h4>
+                                    <p id="modalCreatedDate">-</p>
+                                </div>
+                            </div>
+                            <div class="modal-detail-item">
+                                <i class="fas fa-comments"></i>
+                                <div>
+                                    <h4>Активность</h4>
+                                    <p id="modalActivity">-</p>
+                                </div>
+                            </div>
+                            <div class="modal-detail-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <h4>Репутация</h4>
+                                    <p id="modalReputation">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-risk-factors">
+                        <h3>ФАКТОРЫ РИСКА</h3>
+                        <div id="modalRiskFactors" class="modal-factors-list">
+                            <!-- Risk factors will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="modal-recommendations">
+                        <h3>РЕКОМЕНДАЦИИ</h3>
+                        <div id="modalRecommendations" class="modal-recommendations-list">
+                            <!-- Recommendations will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="modalAnalyzeAnotherBtn" class="modal-analyze-another-btn">
+                        <i class="fas fa-redo"></i>
+                        НОВЫЙ АНАЛИЗ
+                    </button>
+                </div>
+            </div>
+        </div>
+        </main>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 v1.1 Система обнаружения менеджеров мошенников</p>
+            <p class="disclaimer">
+                <i class="fas fa-exclamation-triangle"></i>
+                ВНИМАНИЕ: Данный инструмент предназначен только для демонстрационных целей. 
+                Результаты анализа не являются юридическим заключением.
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js?v=7"></script>
+</body>
+</html>

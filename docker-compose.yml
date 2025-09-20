@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  detector:
+    build: .
+    container_name: detector-app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./logs:/var/log/nginx
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Moscow
+    networks:
+      - detector-network
+
+networks:
+  detector-network:
+    driver: bridge
