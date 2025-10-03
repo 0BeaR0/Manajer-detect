@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор PNG иконки</title>
+    <style>
+        body {
+            background: #000033;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            background: linear-gradient(135deg, #1a0033, #330066);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+        }
+        
+        canvas {
+            border: 3px solid #00ffff;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            margin: 20px 0;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            color: #000033;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(255, 0, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Генератор PNG иконки</h1>
+        <p>Нажмите кнопку для генерации PNG иконки 512x512px</p>
+        
+        <canvas id="iconCanvas" width="512" height="512"></canvas>
+        
+        <button class="download-btn" onclick="generatePNG()">🖼️ Сгенерировать PNG</button>
+        <button class="download-btn" onclick="downloadPNG()">📥 Скачать PNG</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('iconCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function generatePNG() {
+            // Clear canvas
+            ctx.clearRect(0, 0, 512, 512);
+            
+            // Background gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, 512, 512);
+            bgGradient.addColorStop(0, '#000033');
+            bgGradient.addColorStop(0.5, '#1a0033');
+            bgGradient.addColorStop(1, '#330066');
+            
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Grid pattern
+            ctx.strokeStyle = '#ff00ff';
+            ctx.lineWidth = 1;
+            ctx.globalAlpha = 0.3;
+            
+            for (let x = 0; x < 512; x += 40) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, 512);
+                ctx.stroke();
+            }
+            
+            for (let y = 0; y < 512; y += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(512, y);
+                ctx.stroke();
+            }
+            
+            ctx.globalAlpha = 1;
+            
+            // Main magnifying glass
+            ctx.save();
+            ctx.translate(256, 200);
+            
+            // Magnifying glass handle
+            ctx.fillStyle = '#ff00ff';
+            ctx.fillRect(80, 60, 8, 40);
+            
+            // Magnifying glass circle
+            ctx.strokeStyle = '#00ff00';
+            ctx.lineWidth = 8;
+            ctx.beginPath();
+            ctx.arc(0, 0, 60, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.arc(0, 0, 50, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Inner glass effect
+            ctx.fillStyle = 'rgba(0, 255, 0, 0.1)';
+            ctx.beginPath();
+            ctx.arc(0, 0, 45, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Crosshair
+            ctx.strokeStyle = '#ff00ff';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-20, 0);
+            ctx.lineTo(20, 0);
+            ctx.moveTo(0, -20);
+            ctx.lineTo(0, 20);
+            ctx.stroke();
+            
+            // Center dot
+            ctx.fillStyle = '#00ffff';
+            ctx.beginPath();
+            ctx.arc(0, 0, 4, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.restore();
+            
+            // Warning triangle
+            ctx.save();
+            ctx.translate(256, 320);
+            
+            // Triangle
+            ctx.strokeStyle = '#ff00ff';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(-30, -25);
+            ctx.lineTo(30, -25);
+            ctx.lineTo(0, 25);
+            ctx.closePath();
+            ctx.stroke();
+            
+            ctx.fillStyle = 'rgba(255, 0, 255, 0.2)';
+            ctx.fill();
+            
+            // Exclamation mark
+            ctx.fillStyle = '#00ff00';
+            ctx.fillRect(-3, -15, 6, 20);
+            ctx.beginPath();
+            ctx.arc(0, 8, 4, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.restore();
+            
+            // Title text
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 24px Courier New';
+            ctx.textAlign = 'center';
+            ctx.fillText('DETECTOR', 256, 120);
+            
+            ctx.fillStyle = '#ff00ff';
+            ctx.font = '18px Courier New';
+            ctx.fillText('MANAGERS', 256, 150);
+            
+            // Version text
+            ctx.fillStyle = '#00ffff';
+            ctx.font = '12px Courier New';
+            ctx.fillText('v1.1', 256, 480);
+            
+            // Circuit elements
+            ctx.globalAlpha = 0.6;
+            
+            // Top left circuit
+            ctx.fillStyle = '#00ffff';
+            ctx.fillRect(80, 80, 4, 20);
+            ctx.fillRect(80, 80, 20, 4);
+            ctx.beginPath();
+            ctx.arc(100, 82, 3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Top right circuit
+            ctx.fillStyle = '#00ff00';
+            ctx.fillRect(400, 80, 4, 20);
+            ctx.fillRect(400, 80, 20, 4);
+            ctx.beginPath();
+            ctx.arc(420, 82, 3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Bottom left circuit
+            ctx.fillStyle = '#ff00ff';
+            ctx.fillRect(80, 400, 4, 20);
+            ctx.fillRect(80, 400, 20, 4);
+            ctx.beginPath();
+            ctx.arc(100, 402, 3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Bottom right circuit
+            ctx.fillStyle = '#00ffff';
+            ctx.fillRect(400, 400, 4, 20);
+            ctx.fillRect(400, 400, 20, 4);
+            ctx.beginPath();
+            ctx.arc(420, 402, 3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.globalAlpha = 1;
+        }
+        
+        function downloadPNG() {
+            const link = document.createElement('a');
+            link.download = 'telegram-app-icon.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Generate icon on page load
+        window.onload = function() {
+            generatePNG();
+        };
+    </script>
+</body>
+</html>
