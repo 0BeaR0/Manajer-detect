@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детектор подозрительных менеджеров - Telegram Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="telegram-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Telegram WebApp Container -->
+    <div id="telegram-web-app">
+        <!-- Header -->
+        <header class="telegram-header">
+            <div class="header-content">
+                <h1 class="telegram-title">🔍 Детектор подозрительных менеджеров</h1>
+                <div class="telegram-subtitle">Анализ Telegram каналов на мошенничество</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="telegram-main">
+            <!-- Analysis Form -->
+            <div class="telegram-form-container">
+                <div class="form-header">
+                    <h2>Введите @username канала</h2>
+                    <p class="form-description">Система проанализирует канал на предмет мошенничества</p>
+                </div>
+                
+                <form id="telegram-analysis-form" class="telegram-form">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="telegram-channel-input" 
+                            placeholder="@username или t.me/username"
+                            maxlength="50"
+                            required
+                        >
+                        <button type="submit" class="telegram-analyze-btn">
+                            <i class="fas fa-search"></i>
+                            Запустить анализ
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Loading State -->
+            <div id="telegram-loading" class="telegram-loading hidden">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Анамнез Менеджера...</p>
+            </div>
+
+            <!-- Results Modal -->
+            <div id="telegram-modal" class="telegram-modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>РЕЗУЛЬТАТЫ АНАЛИЗА</h3>
+                        <button class="modal-close" onclick="closeTelegramModal()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class="risk-score-container">
+                            <div class="risk-score-circle">
+                                <span id="telegram-risk-score">0%</span>
+                            </div>
+                            <p class="risk-label">УРОВЕНЬ МОШЕННИЧЕСТВА</p>
+                        </div>
+                        
+                        <div class="risk-factors">
+                            <h4>Факторы риска:</h4>
+                            <ul id="telegram-factors-list"></ul>
+                        </div>
+                        
+                        <div class="recommendations">
+                            <h4>Рекомендации:</h4>
+                            <ul id="telegram-recommendations-list"></ul>
+                        </div>
+                        
+                        <div class="memes-container">
+                            <h4>Мемы по теме:</h4>
+                            <div id="telegram-memes" class="memes-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="telegram-footer">
+            <p>Система обнаружения менеджеров мошенников v1.1</p>
+            <div class="telegram-buttons">
+                <button class="telegram-btn" onclick="shareResults()">
+                    <i class="fas fa-share"></i>
+                    Поделиться
+                </button>
+                <button class="telegram-btn" onclick="openChannel()">
+                    <i class="fab fa-telegram"></i>
+                    @Project_leen
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="telegram-script.js"></script>
+</body>
+</html>

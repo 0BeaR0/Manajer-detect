@@ -1,0 +1,359 @@
+/* Telegram Mini App Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--tg-theme-bg-color, #ffffff);
+    color: var(--tg-theme-text-color, #000000);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+#telegram-web-app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--tg-theme-bg-color, #ffffff);
+}
+
+/* Header */
+.telegram-header {
+    background: var(--tg-theme-header-bg-color, #2481cc);
+    color: var(--tg-theme-header-text-color, #ffffff);
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.telegram-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.telegram-subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Main Content */
+.telegram-main {
+    flex: 1;
+    padding: 20px 16px;
+    max-width: 100%;
+}
+
+.telegram-form-container {
+    background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-header h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--tg-theme-text-color, #000000);
+}
+
+.form-description {
+    font-size: 14px;
+    color: var(--tg-theme-hint-color, #999999);
+    margin-bottom: 20px;
+}
+
+.telegram-form {
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#telegram-channel-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--tg-theme-button-color, #2481cc);
+    border-radius: 8px;
+    font-size: 16px;
+    background: var(--tg-theme-bg-color, #ffffff);
+    color: var(--tg-theme-text-color, #000000);
+    transition: border-color 0.3s ease;
+}
+
+#telegram-channel-input:focus {
+    outline: none;
+    border-color: var(--tg-theme-button-color, #2481cc);
+    box-shadow: 0 0 0 3px rgba(36, 129, 204, 0.1);
+}
+
+.telegram-analyze-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--tg-theme-button-color, #2481cc);
+    color: var(--tg-theme-button-text-color, #ffffff);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+}
+
+.telegram-analyze-btn:hover {
+    background: var(--tg-theme-button-color, #1a6bb3);
+    transform: translateY(-1px);
+}
+
+.telegram-analyze-btn:active {
+    transform: translateY(0);
+}
+
+/* Loading State */
+.telegram-loading {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--tg-theme-hint-color, #e0e0e0);
+    border-top: 4px solid var(--tg-theme-button-color, #2481cc);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 16px;
+    color: var(--tg-theme-text-color, #000000);
+    font-weight: 500;
+}
+
+/* Modal */
+.telegram-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.modal-content {
+    background: var(--tg-theme-bg-color, #ffffff);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    background: var(--tg-theme-header-bg-color, #2481cc);
+    color: var(--tg-theme-header-text-color, #ffffff);
+    padding: 16px 20px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--tg-theme-header-text-color, #ffffff);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.risk-score-container {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.risk-score-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--tg-theme-button-color, #2481cc);
+    color: var(--tg-theme-button-text-color, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.risk-label {
+    font-size: 14px;
+    color: var(--tg-theme-hint-color, #999999);
+    font-weight: 500;
+}
+
+.risk-factors, .recommendations {
+    margin-bottom: 20px;
+}
+
+.risk-factors h4, .recommendations h4 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: var(--tg-theme-text-color, #000000);
+}
+
+.risk-factors ul, .recommendations ul {
+    list-style: none;
+    padding: 0;
+}
+
+.risk-factors li, .recommendations li {
+    background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--tg-theme-text-color, #000000);
+    border-left: 4px solid var(--tg-theme-button-color, #2481cc);
+}
+
+.memes-container h4 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: var(--tg-theme-text-color, #000000);
+}
+
+.memes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+}
+
+.meme-item {
+    text-align: center;
+    background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    color: var(--tg-theme-hint-color, #999999);
+}
+
+/* Footer */
+.telegram-footer {
+    background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+    padding: 16px;
+    text-align: center;
+    border-top: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+}
+
+.telegram-footer p {
+    font-size: 12px;
+    color: var(--tg-theme-hint-color, #999999);
+    margin-bottom: 12px;
+}
+
+.telegram-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.telegram-btn {
+    padding: 8px 16px;
+    background: var(--tg-theme-button-color, #2481cc);
+    color: var(--tg-theme-button-text-color, #ffffff);
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    min-height: 36px;
+}
+
+.telegram-btn:hover {
+    background: var(--tg-theme-button-color, #1a6bb3);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: var(--tg-theme-bg-color, #1a1a1a);
+        color: var(--tg-theme-text-color, #ffffff);
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+    .telegram-main {
+        padding: 16px 12px;
+    }
+    
+    .telegram-form-container {
+        padding: 16px;
+    }
+    
+    .modal-content {
+        margin: 8px;
+        max-height: 90vh;
+    }
+    
+    .telegram-buttons {
+        flex-direction: column;
+    }
+    
+    .telegram-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
